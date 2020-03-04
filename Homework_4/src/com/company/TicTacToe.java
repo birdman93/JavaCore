@@ -79,7 +79,7 @@ public class TicTacToe {
         return false;
     }
 
-    private static boolean checkLines(char symbol, int indentX, int indentY) { // инты добавлены для учета сдвига "победных" квадратов
+    private static boolean checkLines(char symbol, int indentX, int indentY) { // инты добавлены для учета сдвига потенциальных "победных" квадратов
         boolean cols, rows;
         for (int col = indentX; col < (indentX + DOT_TO_WIN); col++) {
             cols = true;
@@ -95,14 +95,14 @@ public class TicTacToe {
     }
 
     private static boolean checkDiagonals (char symbol, int indentX, int indentY) {
-        boolean toright, toleft;
-        toright = true;
-        toleft = true;
+        boolean toRight, toLeft;
+        toRight = true;
+        toLeft = true;
         for (int i = 0; i < DOT_TO_WIN; i++) {
-            toright = toright & (map[i + indentX][i + indentY] == symbol);
-            toleft = toleft & (map[DOT_TO_WIN - i - 1 + indentX][i + indentY] == symbol);
+            toRight = toRight & (map[i + indentX][i + indentY] == symbol);
+            toLeft = toLeft & (map[DOT_TO_WIN - i - 1 + indentX][i + indentY] == symbol);
         }
-        if (toright || toleft) return true;
+        if (toRight || toLeft) return true;
         return false;
     }
 
