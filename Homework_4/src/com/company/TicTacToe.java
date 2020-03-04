@@ -6,8 +6,8 @@ import java.util.SimpleTimeZone;
 
 public class TicTacToe {
 
-    public static final int SIZE = 3;
-    public static final int DOT_TO_WIN = 3;
+    public static final int SIZE = 5;
+    public static final int DOT_TO_WIN = 4;
 
     public static final char DOT_EMPTY = '▪';
     public static final char DOT_X = 'X';
@@ -24,7 +24,7 @@ public class TicTacToe {
 
         initMap(); // Создаем игровое поле
         printMap(); // Выводим игровое поле
-        game(); // сама игра
+        game(); // Процесс игры
     }
 
     private static void game() {
@@ -68,35 +68,39 @@ public class TicTacToe {
 
     // Проверка на победу
     private static boolean checkWin(char symbol) {
-        for (int col = 0; col < (SIZE - 1); col++) {
-            for (int row = 0; row < (SIZE - 1); row++) {
-                if (checkDiagonals(symbol) || checkLines(symbol)) return true;
+    /* В квадрате 5х5 есть 4 квадрата 4х4, заполнив которые, можно победить,
+       мы будем перебирать их стартовые позиции: 2 в первой строке и 2 во второй строке,
+       но формула будет работать и при изменении констант*/
+        for (int col = 0; col < (SIZE - DOT_TO_WIN + 1); col++) {
+            for (int row = 0; row < (SIZE - DOT_TO_WIN + 1); row++) {
+                if (checkDiagonals(symbol, col, row) || checkLines(symbol, col, row)) return true;
             }
         }
         return false;
     }
 
-    private static boolean checkLines(char symbol) {
+    private static boolean checkLines(char symbol, int indentX, int indentY) { // инты добавлены для учета сдвига "победных" квадратов
         boolean cols, rows;
-        for (int col = 0; col < SIZE; col++) {
+        for (int col = indentX; col < (indentX + DOT_TO_WIN); col++) {
             cols = true;
             rows = true;
-            for (int row = 0; row < SIZE; row++) {
-                cols &= (map[col][row] == symbol);
-                rows &= (map[row][col] == symbol);
+            for (int row = indentY; row < (indentY + DOT_TO_WIN); row++) {
+               // Проверяем по логике: 1 & 1 = 1; 1 & 0 = 0
+                cols = cols & (map[col][row] == symbol);
+                rows = rows & (map[row][col] == symbol);
             }
             if (cols || rows) return true;
         }
         return false;
     }
 
-    private static boolean checkDiagonals (char symbol) {
+    private static boolean checkDiagonals (char symbol, int indentX, int indentY) {
         boolean toright, toleft;
         toright = true;
         toleft = true;
-        for (int i = 0; i < SIZE; i++) {
-            toright &= (map[i][i] == symbol);
-            toleft &= (map[SIZE - i - 1][i] == symbol);
+        for (int i = 0; i < DOT_TO_WIN; i++) {
+            toright = toright & (map[i + indentX][i + indentY] == symbol);
+            toleft = toleft & (map[DOT_TO_WIN - i - 1 + indentX][i + indentY] == symbol);
         }
         if (toright || toleft) return true;
         return false;
