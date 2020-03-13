@@ -12,11 +12,15 @@ public class Homework_6 {
 
     public static void main(String[] args) {
 
+
+// Задаем питомцев, указывая их максимальные возможности по каждой из команд
+
         Cats cat1 = new Cats("Иммануил", 200, 1,2);
         Cats cat2 = new Cats("Огюст", 150, 1, 1.5);
         Dogs dog1 = new Dogs("Бенджамин", 500, 15, 1);
         Dogs dog2 = new Dogs("Эдвард", 600, 9, 0.5);
 
+// Выводим результат выполнения команд по заданным параметрам питомцами
 
         System.out.println("Результат выполнения команд для кота по имени " + cat1.name);
         cat1.jumping(2);
