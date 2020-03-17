@@ -1,14 +1,29 @@
-public class Plate {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Cat[] cats;
+public class Plate implements Observed {
+
     private int food;
+
+    List<Observer> observers = new ArrayList<>();
 
     public Plate(int food) {
         this.food = food;
     }
 
-    public void addCat(Cat cat) {
+    // Реализуем методы "Наблюдателя"
+    public void addObserver(Observer cat) {
+        observers.add(cat);
     }
+    public void removeObserver(Observer cat) {
+        observers.remove(cat);
+    }
+    public void notifyObservers() {
+        for (Observer cat : observers) {
+            cat.handleEvent(this.food);
+        }
+    }
+
 
     public int getFood() {
         return food;
@@ -35,5 +50,14 @@ public class Plate {
                 "food=" + food +
                 '}';
     }
+}
 
+interface Observer {
+    void handleEvent(int food);
+}
+
+interface Observed {
+    void addObserver (Observer cat);
+    void removeObserver (Observer cat);
+    void notifyObservers ();
 }

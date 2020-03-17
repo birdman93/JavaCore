@@ -1,4 +1,4 @@
-public class Cat {
+public class Cat implements Observer {
 
     private final String name;
     private int appetite;
@@ -7,6 +7,10 @@ public class Cat {
     public Cat(String name, int appetite) {
         this.name = name;
         this.appetite = appetite;
+    }
+
+    public void handleEvent(int food) {
+        System.out.println("В миске появилось " + food + " еды");
     }
 
     public String getName() {

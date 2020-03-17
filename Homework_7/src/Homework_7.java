@@ -19,24 +19,25 @@ public class Homework_7 {
         // задаем начальное кол-во корма в миске
         Plate plate = new Plate(14);
         plate.info();
-        System.out.println();
 
         // ест первый кот
         cat1.eat(plate);
-        plate.info();
         System.out.println();
+        plate.info();
 
         // ест второй кот
         cat2.eat(plate);
-        plate.info();
         System.out.println();
+        plate.info();
 
         // ест третий кот
         cat3.eat(plate);
-        plate.info();
         System.out.println();
+        plate.info();
 
         plate.addFood(10); //Observer
+
+
         plate.info();
     }
 }
